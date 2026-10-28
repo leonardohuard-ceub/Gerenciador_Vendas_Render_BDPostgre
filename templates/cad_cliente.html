@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Cadastro de Cliente{% endblock %}
+{% block conteudo %}
+<div class="card">
+  <h2>Cadastro de Cliente</h2>
+  <form method="post">
+    <label>Nome <input name="nome" required></label>
+    <label>Endereço <input name="endereco"></label>
+    <label>E-mail <input name="email" type="email"></label>
+    <button>Salvar</button>
+  </form>
+</div>
+<div class="card">
+  <h3>Clientes cadastrados</h3>
+  <table>
+    <tr><th>ID</th><th>Nome</th><th>Endereço</th><th>E-mail</th></tr>
+    {% for c in clientes %}
+    <tr><td>{{ c.id }}</td><td>{{ c.nome }}</td><td>{{ c.endereco or '' }}</td><td>{{ c.email or '' }}</td></tr>
+    {% else %}
+    <tr><td colspan="4">Nenhum cliente ainda.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Sistema de Vendas</h1>
+<div class="menu">
+  <a href="{{ url_for('cad_cliente') }}">Cadastrar Cliente</a>
+  <a href="{{ url_for('cad_produto') }}">Cadastrar Produto</a>
+  <a href="{{ url_for('venda') }}">Nova Venda</a>
+  <a href="{{ url_for('consulta') }}">Consultas</a>
+</div>
+{% endblock %}

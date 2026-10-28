@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block titulo %}Venda{% endblock %}
+{% block conteudo %}
+<div class="card">
+  <h2>Nova Venda</h2>
+  {% if not clientes or not produtos %}
+    <p>Cadastre pelo menos um cliente e um produto antes de vender.</p>
+  {% else %}
+  <form method="post">
+    <label>Cliente
+      <select name="cliente_id" required>
+        {% for c in clientes %}<option value="{{ c.id }}">{{ c.nome }}</option>{% endfor %}
+      </select>
+    </label>
+
+    <label>Produtos (informe a quantidade)</label>
+    <table>
+      <tr><th></th><th>Produto</th><th>Valor</th><th>Qtd</th></tr>
+      {% for p in produtos %}
+      <tr>
+        <td>{% if p.foto %}<img class="mini" src="{{ p.foto }}" alt="">{% endif %}</td>
+        <td>{{ p.nome }}</td>
+        <td>R$ {{ '%.2f'|format(p.valor) }}</td>
+        <td><input class="qtd" type="number" min="0" name="qtd_{{ p.id }}" value="0"></td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <label>Pagamento
+      <select name="pagamento">
+        <option>Pix</option><option>Cartão de crédito</option>
+        <option>Cartão de débito</option><option>Dinheiro</option><option>Boleto</option>
+      </select>
+    </label>
+    <label>Entrega
+      <select name="entrega">
+        <option>Retirada na loja</option><option>Entrega em domicílio</option><option>Correios</option>
+      </select>
+    </label>
+    <button>Registrar venda</button>
+  </form>
+  {% endif %}
+</div>
+<div class="card">
+  <h3>Vendas realizadas</h3>
+  <table>
+    <tr><th>Nº</th><th>Data</th><th>Cliente</th><th>Pagamento</th><th>Entrega</th><th>Total</th></tr>
+    {% for v in vendas %}
+    <tr><td>{{ v.id }}</td><td>{{ v.data.strftime('%d/%m/%Y %H:%M') }}</td><td>{{ v.cliente }}</td>
+        <td>{{ v.pagamento }}</td><td>{{ v.entrega }}</td><td>R$ {{ '%.2f'|format(v.total) }}</td></tr>
+    {% else %}
+    <tr><td colspan="6">Nenhuma venda ainda.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

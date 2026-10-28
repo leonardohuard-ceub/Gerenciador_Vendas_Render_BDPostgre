@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Consulta{% endblock %}
+{% block conteudo %}
+<div class="card">
+  <h2>Produtos mais vendidos</h2>
+  <table>
+    <tr><th>Produto</th><th>Qtd vendida</th><th>Faturamento</th></tr>
+    {% for p in produtos %}
+    <tr><td>{{ p.nome }}</td><td>{{ p.qtd_vendida }}</td><td>R$ {{ '%.2f'|format(p.faturamento) }}</td></tr>
+    {% else %}
+    <tr><td colspan="3">Sem vendas ainda.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+<div class="card">
+  <h2>Clientes que mais compram</h2>
+  <table>
+    <tr><th>Cliente</th><th>Nº de compras</th><th>Total gasto</th></tr>
+    {% for c in clientes %}
+    <tr><td>{{ c.nome }}</td><td>{{ c.num_compras }}</td><td>R$ {{ '%.2f'|format(c.total_gasto) }}</td></tr>
+    {% else %}
+    <tr><td colspan="3">Sem vendas ainda.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
